@@ -1,0 +1,68 @@
+.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - FoodyCom</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <div class="nav">
+        <div class="menu-wrap">
+            <a href="index.html">
+                <div class="logo">
+                    FoodyCom
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <section class="checkout-section">
+        <div class="container">
+            <div class="checkout-container">
+                <h1>Complete Your Order</h1>
+                <div class="checkout-grid">
+                    <div class="order-summary">
+                        <div class="summary-card">
+                            <h2><i class='bx bx-cart'></i> Order Summary</h2>
+                            <div id="checkout-items"></div>
+                            <div class="checkout-total">
+                                <h3>Total: <span id="checkout-total">$0.00</span></h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="delivery-form">
+                        <div class="form-card">
+                            <h2><i class='bx bx-map'></i> Delivery Details</h2>
+                            <form id="checkout-form">
+                                <div class="form-group">
+                                    <input type="text" required placeholder="Full Name">
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" required placeholder="Email">
+                                </div>
+                                <div class="form-group">
+                                    <input type="tel" required placeholder="Phone">
+                                </div>
+                                <div class="form-group">
+                                    <textarea placeholder="Delivery Address" required></textarea>
+                                </div>
+                                <button type="submit" class="checkout-btn">
+                                    <i class='bx bx-check'></i> Place Order
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/checkout.js"></script>
+</body>
+</html>
