@@ -87,6 +87,25 @@ bottomNavItems.forEach((item, index) => {
     }
 })
 
+// Function to check if user should see the wheel
+function shouldShowDiscountWheel() {
+    const loggedInUserString = localStorage.getItem('loggedInUser');
+    
+    // If user is logged in, don't show wheel
+    if (loggedInUserString) {
+        return false;
+    }
+
+    // Check if this is first visit
+    const hasVisitedBefore = localStorage.getItem('hasVisitedBefore');
+    if (!hasVisitedBefore) {
+        localStorage.setItem('hasVisitedBefore', 'true');
+        return true;
+    }
+
+    return false;
+}
+
 // Discount Wheel
 document.addEventListener('DOMContentLoaded', function() {
     const modal = document.getElementById('wheelModal');
@@ -97,32 +116,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const claimBtn = document.getElementById('claimBtn');
     const ctx = canvas.getContext('2d');
 
-    // Check if user is logged in
-    const loggedInUser = localStorage.getItem('loggedInUser');
-    
-    // Show modal only if:
-    // 1. User is NOT logged in, AND modal hasn't been shown in this session
-    // 2. User IS logged in, but has NOT claimed discount AND modal hasn't been shown in this session
-    let shouldShowModal = false;
-    
-    if (!loggedInUser) {
-        // User not logged in - show if not shown in this session
-        if (!localStorage.getItem('discountModalShown')) {
-            shouldShowModal = true;
-            localStorage.setItem('discountModalShown', 'true');
-        }
-    } else {
-        // User is logged in - show modal ONLY if they haven't claimed discount AND modal not shown in session
-        const user = JSON.parse(loggedInUser);
-        if (!user.hasClaimedDiscount && !localStorage.getItem('discountModalShown')) {
-            shouldShowModal = true;
-            localStorage.setItem('discountModalShown', 'true');
-        }
-        // If user.hasClaimedDiscount is true, shouldShowModal remains false → modal never shows again for this account
-    }
-    
-    if (shouldShowModal) {
+    // Check if wheel should be shown
+    if (shouldShowDiscountWheel()) {
         modal.style.display = 'block';
+    } else {
+        modal.style.display = 'none';
     }
 
     // Update the wheel segments with better colors
@@ -262,15 +260,16 @@ document.addEventListener('DOMContentLoaded', function() {
     // Event listeners
     spinBtn.addEventListener('click', spin);
     claimBtn.addEventListener('click', function() {
-        // Save the won discount to local storage to be applied after sign up
         const wonDiscount = parseFloat(discountAmount.textContent);
         if (!isNaN(wonDiscount)) {
-            localStorage.setItem('pendingDiscount', wonDiscount);
+            // Store the discount for signup process
+            sessionStorage.setItem('pendingDiscount', wonDiscount.toString());
+            window.location.href = 'signup.html';
         }
-        // Redirect to the sign-up page
-        window.location.href = 'signup.html';
     });
 });
+
+// Discount Wheel code end
 
 function applyDiscount(discountPercent) {
     const foodItems = document.querySelectorAll('.food-item');
@@ -303,28 +302,19 @@ function handleAuthState() {
         userProfile.style.display = 'flex';
         usernameSpan.textContent = loggedInUser.name;
 
+        // Apply stored discount if it exists and hasn't been applied yet
+        if (loggedInUser.discount && !loggedInUser.discountApplied) {
+            applyDiscount(loggedInUser.discount);
+            loggedInUser.discountApplied = true;
+            localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
+            showNotification(`Welcome back! Your ${loggedInUser.discount}% discount has been applied.`);
+        }
+
         signoutBtn.addEventListener('click', () => {
             localStorage.removeItem('loggedInUser');
-            // Clean up session-specific modal flag on sign out
-            localStorage.removeItem('discountModalShown');
+            // Don't clear hasVisitedBefore to remember returning users
             window.location.reload();
         });
-
-        // Check for a pending discount from the wheel
-        const pendingDiscount = localStorage.getItem('pendingDiscount');
-
-        // Apply discount ONLY if it's pending AND this user hasn't already claimed a discount
-        if (pendingDiscount && !loggedInUser.hasClaimedDiscount) {
-            applyDiscount(parseFloat(pendingDiscount));
-            showNotification(`Welcome, ${loggedInUser.name}! Your ${pendingDiscount}% discount has been applied.`);
-            
-            // Update the user object to mark the discount as claimed
-            loggedInUser.hasClaimedDiscount = true;
-            localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
-
-            // Remove the pending discount as it has now been tied to the account and applied
-            localStorage.removeItem('pendingDiscount');
-        }
     } else {
         // User is not logged in
         authLinks.forEach(link => link.style.display = 'block');
