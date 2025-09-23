@@ -101,9 +101,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const loggedInUser = localStorage.getItem('loggedInUser');
     
     // Show modal only if:
-    // 1. User is not logged in
-    // 2. Modal hasn't been shown in this session
-    // 3. If user is logged in, they haven't claimed a discount before
+    // 1. User is NOT logged in, AND modal hasn't been shown in this session
+    // 2. User IS logged in, but has NOT claimed discount AND modal hasn't been shown in this session
     let shouldShowModal = false;
     
     if (!loggedInUser) {
@@ -113,12 +112,13 @@ document.addEventListener('DOMContentLoaded', function() {
             localStorage.setItem('discountModalShown', 'true');
         }
     } else {
-        // User is logged in - never show modal if they have claimed discount
+        // User is logged in - show modal ONLY if they haven't claimed discount AND modal not shown in session
         const user = JSON.parse(loggedInUser);
         if (!user.hasClaimedDiscount && !localStorage.getItem('discountModalShown')) {
             shouldShowModal = true;
             localStorage.setItem('discountModalShown', 'true');
         }
+        // If user.hasClaimedDiscount is true, shouldShowModal remains false → modal never shows again for this account
     }
     
     if (shouldShowModal) {
