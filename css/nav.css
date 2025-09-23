@@ -1,0 +1,101 @@
+/* ---------- NAVIGATION ---------- */
+:root {
+    --primary-color: #0F9D58;
+    --background-color: #f0f3f7;
+    --secon-color: #9da2ad;
+    --grey: #7a7a7b;
+    --white: #ffffff;
+}
+
+* {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a { color: unset; text-decoration: none; }
+
+body, html {
+    background-color: var(--background-color);
+    scroll-behavior: smooth;
+    position: relative;
+    overflow-x: hidden;
+}
+
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 99;
+    background-color: var(--background-color);
+    box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
+}
+
+.menu-wrap {
+    max-width: 1366px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+}
+
+.logo { font-size: 2rem; font-weight: 800; color: var(--primary-color); }
+
+.menu { display: flex; align-items: center; justify-content: center; }
+
+.menu-item {
+    margin-left: 1rem;
+    padding: .5rem 1.5rem;
+    font-weight: 600;
+    color: var(--grey);
+    transition: .5s ease-in-out;
+    cursor: pointer;
+}
+
+.menu-item:hover,
+.menu-item.active {
+    color: var(--white);
+    background-color: var(--primary-color);
+    border-radius: 1rem;
+}
+
+.cart-btn {
+    width: 3rem; height: 3rem;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--primary-color); font-size: 2rem;
+    cursor: pointer; transition: .5s ease-in-out;
+}
+
+.cart-btn:hover {
+    background-color: var(--primary-color);
+    color: var(--white);
+    border-radius: 1rem;
+}
+
+/* mobile nav */
+.mb-nav {
+    display: none;
+}
+
+@media (max-width: 600px) {
+    .mb-nav {
+        position: fixed; bottom: 0; left: 0;
+        display: flex; width: 100%; justify-content: space-between;
+        align-items: center; background: var(--white); z-index: 99;
+        border-top-left-radius: 2rem; border-top-right-radius: 2rem;
+        box-shadow: rgba(100,100,111,.2) 0 7px 29px 0;
+    }
+    .mb-nav-item {
+        flex: 25%; padding: 1rem 0;
+        display: flex; align-items: center; justify-content: center;
+    }
+    .mb-nav-item i { font-size: 2rem; color: var(--secon-color); transition: .5s; }
+    .mb-nav-item.active i { color: var(--white); }
+    .mb-move-item {
+        position: absolute; left: 0; width: 25%; height: 100%;
+        background: var(--primary-color); transition: .5s ease-in-out;
+    }
+}

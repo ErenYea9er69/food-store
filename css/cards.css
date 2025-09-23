@@ -1,0 +1,27 @@
+/* ---------- CARD COMPONENTS & REVIEWS ---------- */
+.review-wrap {
+    width: 100%; padding: 1rem; background: var(--white); border-radius: 3rem;
+    box-shadow: rgba(100,100,111,.2) 0 7px 29px 0;
+}
+.review-wrap.active { transform: scale(1.2) !important; }
+
+.review-content {
+    padding: 3rem; border-bottom: .125rem solid var(--grey); position: relative; text-align: center;
+}
+.review-img {
+    position: absolute; left: 50%; transform: translateX(-50%); bottom: -2.5rem;
+    width: 5rem; height: 5rem; border-radius: 2rem;
+    box-shadow: rgba(100,100,111,.2) 0 7px 29px 0;
+}
+.review-info { padding: 3rem; text-align: center; }
+
+.rating { margin-top: 2rem; }
+.rating i { color: var(--primary-color); }
+
+/* utility card */
+.about-slogan {
+    padding: 4rem; background: var(--white); border-radius: 2rem;
+    box-shadow: rgba(0,0,0,.15) 0 2px 8px;
+}
+.about-slogan.start { transform: translateX(-10rem) !important; }
+.about-slogan h3 { font-size: 2rem; margin-bottom: 3rem; color: var(--grey); }
