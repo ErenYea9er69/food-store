@@ -97,10 +97,32 @@ document.addEventListener('DOMContentLoaded', function() {
     const claimBtn = document.getElementById('claimBtn');
     const ctx = canvas.getContext('2d');
 
-    // Show modal only once per user session and only if they are not logged in
-    if (!localStorage.getItem('discountModalShown') && !localStorage.getItem('loggedInUser')) {
+    // Check if user is logged in
+    const loggedInUser = localStorage.getItem('loggedInUser');
+    
+    // Show modal only if:
+    // 1. User is not logged in
+    // 2. Modal hasn't been shown in this session
+    // 3. If user is logged in, they haven't claimed a discount before
+    let shouldShowModal = false;
+    
+    if (!loggedInUser) {
+        // User not logged in - show if not shown in this session
+        if (!localStorage.getItem('discountModalShown')) {
+            shouldShowModal = true;
+            localStorage.setItem('discountModalShown', 'true');
+        }
+    } else {
+        // User is logged in - never show modal if they have claimed discount
+        const user = JSON.parse(loggedInUser);
+        if (!user.hasClaimedDiscount && !localStorage.getItem('discountModalShown')) {
+            shouldShowModal = true;
+            localStorage.setItem('discountModalShown', 'true');
+        }
+    }
+    
+    if (shouldShowModal) {
         modal.style.display = 'block';
-        localStorage.setItem('discountModalShown', 'true');
     }
 
     // Update the wheel segments with better colors
