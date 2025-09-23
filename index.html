@@ -66,8 +66,15 @@
                 </a>
             </div>
             <div class="right-menu">
-                <a href="signin.html" class="menu-item">Sign In</a>
-                <a href="signup.html" class="menu-item">Sign Up</a>
+                <a href="signin.html" class="menu-item auth-link">Sign In</a>
+                <a href="signup.html" class="menu-item auth-link">Sign Up</a>
+                <div class="user-profile" style="display: none; align-items: center;">
+                    <i class='bx bxs-user-circle' style="font-size: 28px; margin-right: 8px; color: var(--primary-color);"></i>
+                    <span id="username" style="font-weight: 500;"></span>
+                    <button id="signout-btn" style="margin-left: 15px; background: none; border: 1px solid #fff; color: white; cursor: pointer; font-size: 14px; padding: 5px 10px; border-radius: 5px;">
+                        Sign Out
+                    </button>
+                </div>
                 <div class="cart-btn">
                     <i class='bx bx-cart-alt'></i>
                 </div>

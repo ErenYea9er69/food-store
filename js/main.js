@@ -97,8 +97,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const claimBtn = document.getElementById('claimBtn');
     const ctx = canvas.getContext('2d');
 
-    // Show modal only once per user
-    if (!localStorage.getItem('discountModalShown')) {
+    // Show modal only once per user session and only if they are not logged in
+    if (!localStorage.getItem('discountModalShown') && !localStorage.getItem('loggedInUser')) {
         modal.style.display = 'block';
         localStorage.setItem('discountModalShown', 'true');
     }
@@ -255,12 +255,52 @@ function applyDiscount(discountPercent) {
     foodItems.forEach(item => {
         const priceElement = item.querySelector('span');
         if (priceElement) {
-            const originalPrice = parseFloat(priceElement.textContent.replace('$', ''));
+            const originalPriceText = priceElement.textContent.replace('$', '');
+            // Check if a discount has already been applied by looking for the <del> tag
+            if (priceElement.querySelector('del')) return;
+
+            const originalPrice = parseFloat(originalPriceText);
             const discountedPrice = originalPrice * (1 - discountPercent/100);
-            priceElement.innerHTML = `$${discountedPrice.toFixed(2)} <del style="color: #999; font-size: 0.8em">$${originalPrice.toFixed(2)}</del>`;
+            priceElement.innerHTML = `<span style="color: var(--primary-color); font-weight: bold;">$${discountedPrice.toFixed(2)}</span> <del style="color: #999; font-size: 0.8em">$${originalPrice.toFixed(2)}</del>`;
         }
     });
 }
+
+// Handles showing user profile or auth links based on login state
+function handleAuthState() {
+    const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+    const authLinks = document.querySelectorAll('.auth-link');
+    const userProfile = document.querySelector('.user-profile');
+
+    if (loggedInUser) {
+        const usernameSpan = document.getElementById('username');
+        const signoutBtn = document.getElementById('signout-btn');
+        // User is "logged in"
+        authLinks.forEach(link => link.style.display = 'none');
+        userProfile.style.display = 'flex';
+        usernameSpan.textContent = loggedInUser.name;
+
+        signoutBtn.addEventListener('click', () => {
+            localStorage.removeItem('loggedInUser');
+            // We don't remove pendingDiscount here, to allow them to sign in again to claim it.
+            window.location.reload();
+        });
+
+        // Check for and apply pending discount now that the user is logged in
+        const pendingDiscount = localStorage.getItem('pendingDiscount');
+        if (pendingDiscount) {
+            applyDiscount(parseFloat(pendingDiscount));
+            showNotification(`Welcome, ${loggedInUser.name}! Your ${pendingDiscount}% discount has been applied to all items.`);
+            // Don't remove discount yet, it will be removed at checkout to ensure it's used.
+        }
+    } else {
+        // User is not logged in
+        authLinks.forEach(link => link.style.display = 'block');
+        userProfile.style.display = 'none';
+    }
+}
+
+
 // Cart functionality
 let cart = [];
 
@@ -289,12 +329,16 @@ function initializeCart() {
             const foodItem = this.closest('.food-item');
             if (foodItem) {
                 const itemName = foodItem.querySelector('h3').textContent;
-                const itemPrice = foodItem.querySelector('span').textContent;
+                const itemPriceText = foodItem.querySelector('span').textContent;
+                // Get original price from the <del> tag if it exists, otherwise use the main price
+                const delElement = foodItem.querySelector('span del');
+                const price = delElement ? parseFloat(delElement.textContent.replace('$', '')) : parseFloat(itemPriceText.replace('$', ''));
+                
                 const itemImg = foodItem.querySelector('.img-holder').style.backgroundImage.replace(/url\(['"](.+)['"]\)/, '$1');
                 
                 addToCart({
                     name: itemName,
-                    price: parseFloat(itemPrice.replace('$', '')),
+                    price: price,
                     image: itemImg,
                     quantity: 1
                 });
@@ -399,11 +443,9 @@ function loadCartFromLocalStorage() {
     }
 }
 
-// Initialize cart when DOM is loaded
+// Initialize cart and auth state when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     initializeCart();
     loadCartFromLocalStorage();
-});initializeCart();
-    loadCartFromLocalStorage();
-
-
+    handleAuthState();
+});
