@@ -97,8 +97,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const claimBtn = document.getElementById('claimBtn');
     const ctx = canvas.getContext('2d');
 
-    // Show modal when page loads
-    modal.style.display = 'block';
+    // Show modal only once per user
+    if (!localStorage.getItem('discountModalShown')) {
+        modal.style.display = 'block';
+        localStorage.setItem('discountModalShown', 'true');
+    }
 
     // Update the wheel segments with better colors
     const segments = [
@@ -237,8 +240,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // Event listeners
     spinBtn.addEventListener('click', spin);
     claimBtn.addEventListener('click', function() {
-        modal.style.display = 'none';
-        applyDiscount(parseFloat(discountAmount.textContent));
+        // Save the won discount to local storage to be applied after sign up
+        const wonDiscount = parseFloat(discountAmount.textContent);
+        if (!isNaN(wonDiscount)) {
+            localStorage.setItem('pendingDiscount', wonDiscount);
+        }
+        // Redirect to the sign-up page
+        window.location.href = 'signup.html';
     });
 });
 
@@ -395,5 +403,7 @@ function loadCartFromLocalStorage() {
 document.addEventListener('DOMContentLoaded', () => {
     initializeCart();
     loadCartFromLocalStorage();
-});
+});initializeCart();
+    loadCartFromLocalStorage();
+
 
