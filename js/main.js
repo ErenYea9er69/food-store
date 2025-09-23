@@ -268,11 +268,12 @@ function applyDiscount(discountPercent) {
 
 // Handles showing user profile or auth links based on login state
 function handleAuthState() {
-    const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+    const loggedInUserString = localStorage.getItem('loggedInUser');
     const authLinks = document.querySelectorAll('.auth-link');
     const userProfile = document.querySelector('.user-profile');
 
-    if (loggedInUser) {
+    if (loggedInUserString) {
+        let loggedInUser = JSON.parse(loggedInUserString);
         const usernameSpan = document.getElementById('username');
         const signoutBtn = document.getElementById('signout-btn');
         // User is "logged in"
@@ -282,16 +283,25 @@ function handleAuthState() {
 
         signoutBtn.addEventListener('click', () => {
             localStorage.removeItem('loggedInUser');
-            // We don't remove pendingDiscount here, to allow them to sign in again to claim it.
+            // Clean up session-specific modal flag on sign out
+            localStorage.removeItem('discountModalShown');
             window.location.reload();
         });
 
-        // Check for and apply pending discount now that the user is logged in
+        // Check for a pending discount from the wheel
         const pendingDiscount = localStorage.getItem('pendingDiscount');
-        if (pendingDiscount) {
+
+        // Apply discount ONLY if it's pending AND this user hasn't already claimed a discount
+        if (pendingDiscount && !loggedInUser.hasClaimedDiscount) {
             applyDiscount(parseFloat(pendingDiscount));
-            showNotification(`Welcome, ${loggedInUser.name}! Your ${pendingDiscount}% discount has been applied to all items.`);
-            // Don't remove discount yet, it will be removed at checkout to ensure it's used.
+            showNotification(`Welcome, ${loggedInUser.name}! Your ${pendingDiscount}% discount has been applied.`);
+            
+            // Update the user object to mark the discount as claimed
+            loggedInUser.hasClaimedDiscount = true;
+            localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
+
+            // Remove the pending discount as it has now been tied to the account and applied
+            localStorage.removeItem('pendingDiscount');
         }
     } else {
         // User is not logged in

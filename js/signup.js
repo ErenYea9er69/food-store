@@ -11,9 +11,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Checks if a name was entered.
         if (userName) {
+            // Check if the user is signing up to claim a discount from the wheel.
+            const hasPendingDiscount = localStorage.getItem('pendingDiscount') !== null;
+
             // Creates a user object to simulate a real user profile.
             const user = {
-                name: userName
+                name: userName,
+                // Set a flag indicating whether they have claimed a sign-up discount.
+                hasClaimedDiscount: hasPendingDiscount
             };
             // Stores the user object in localStorage to maintain a "logged in" state.
             localStorage.setItem('loggedInUser', JSON.stringify(user));
