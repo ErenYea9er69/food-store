@@ -87,22 +87,15 @@ bottomNavItems.forEach((item, index) => {
     }
 })
 
-// Function to check if user should see the wheel
+// Update the shouldShowDiscountWheel function
 function shouldShowDiscountWheel() {
     const loggedInUserString = localStorage.getItem('loggedInUser');
     
-    // If user is logged in, don't show wheel
-    if (loggedInUserString) {
-        return false;
-    }
-
-    // Check if this is first visit
-    const hasVisitedBefore = localStorage.getItem('hasVisitedBefore');
-    if (!hasVisitedBefore) {
-        localStorage.setItem('hasVisitedBefore', 'true');
+    // Show wheel only if user is not logged in
+    if (!loggedInUserString) {
         return true;
     }
-
+    
     return false;
 }
 
@@ -264,6 +257,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!isNaN(wonDiscount)) {
             // Store the discount for signup process
             sessionStorage.setItem('pendingDiscount', wonDiscount.toString());
+            // Always redirect to signup, not signin
             window.location.href = 'signup.html';
         }
     });
@@ -297,7 +291,7 @@ function handleAuthState() {
         let loggedInUser = JSON.parse(loggedInUserString);
         const usernameSpan = document.getElementById('username');
         const signoutBtn = document.getElementById('signout-btn');
-        // User is "logged in"
+
         authLinks.forEach(link => link.style.display = 'none');
         userProfile.style.display = 'flex';
         usernameSpan.textContent = loggedInUser.name;
@@ -307,18 +301,22 @@ function handleAuthState() {
             applyDiscount(loggedInUser.discount);
             loggedInUser.discountApplied = true;
             localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
-            showNotification(`Welcome back! Your ${loggedInUser.discount}% discount has been applied.`);
+            showNotification(`Welcome! Your ${loggedInUser.discount}% discount has been applied.`);
         }
 
         signoutBtn.addEventListener('click', () => {
             localStorage.removeItem('loggedInUser');
-            // Don't clear hasVisitedBefore to remember returning users
             window.location.reload();
         });
     } else {
-        // User is not logged in
         authLinks.forEach(link => link.style.display = 'block');
         userProfile.style.display = 'none';
+        
+        // Show wheel for logged out users
+        const modal = document.getElementById('wheelModal');
+        if (modal) {
+            modal.style.display = 'block';
+        }
     }
 }
 

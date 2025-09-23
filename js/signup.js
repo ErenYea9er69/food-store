@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const user = {
                 name: userName,
                 discount: pendingDiscount ? parseFloat(pendingDiscount) : null,
-                discountApplied: false // Will be set to true after first application
+                discountApplied: false
             };
 
             // Store user in localStorage
