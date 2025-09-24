@@ -55,12 +55,12 @@
     align-items: center;
     transition: all 0.5s ease-out;
     gap: 0.5rem;
-    margin-right: 1rem;
+    margin-right: 3rem;
 }
 
 .nav.pill-mode .logo-container {
     gap: 0.25rem;
-    margin-right: 1rem;
+    margin-right: 2rem;
 }
 
 .logo {
@@ -243,7 +243,7 @@
 .user-profile {
     display: flex;
     align-items: center;
-    color: var(--white);
+    color: var(--grey);
     font-weight: 500;
 }
 
