@@ -116,11 +116,11 @@
 }
 
 .menu-item:hover {
-    color: var(--white);
+    color: var(--primary-color);
 }
 
 .menu-item.active {
-    color: var(--white);
+    color: var(--grey);
 }
 
 .menu-item::after {
@@ -129,7 +129,7 @@
     bottom: 0;
     left: 0;
     height: 2px;
-    background-color: var(--white);
+    background-color: var(--primary-color);
     transition: all 0.3s ease-out;
     width: 0;
     opacity: 0;
@@ -144,6 +144,7 @@
     display: flex;
     align-items: center;
     position: relative;
+    gap: 2rem;
 }
 
 .auth-links {
@@ -240,6 +241,14 @@
 }
 
 .user-profile {
-    display: none;
+    display: flex;
     align-items: center;
+    color: var(--white);
+    font-weight: 500;
+}
+
+.user-profile i {
+    font-size: 28px;
+    margin-right: 8px;
+    color: var(--primary-color);
 }
