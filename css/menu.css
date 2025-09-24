@@ -1,4 +1,3 @@
-/* ---------- Food Menu Section ---------- */
 .food-menu {
     padding: 4rem;
     background-color: var(--white);
@@ -99,7 +98,6 @@
     text-align: left;
 }
 
-/* category filters visibility */
 .food-item-wrap>div {
     display: none;
 }
@@ -126,24 +124,4 @@
 
 .food-item-wrap.main>div.main-type {
     display: block;
-}
-
-/* mobile tweaks */
-@media only screen and (max-width: 600px) {
-    .food-menu {
-        padding: 4rem 0;
-    }
-
-    .food-item {
-        width: 50%;
-        height: 25rem;
-    }
-
-    .food-category {
-        overflow-y: scroll;
-    }
-
-    .food-category button {
-        width: max-content;
-    }
 }

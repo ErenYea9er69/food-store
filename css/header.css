@@ -1,4 +1,3 @@
-/* ---------- Navigation ---------- */
 .nav {
     position: fixed;
     top: 0;
@@ -64,53 +63,33 @@
     border-radius: 1rem;
 }
 
-/* mobile bottom nav */
-.mb-nav {
-    display: none;
+/* extra header tweaks pulled in from bottom of original file */
+.menu-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    width: 100%;
 }
 
-@media only screen and (max-width: 600px) {
-    .mb-nav {
-        position: fixed;
-        bottom: 0;
-        display: flex;
-        width: 100%;
-        justify-content: space-between;
-        align-items: center;
-        background-color: var(--white);
-        z-index: 99;
-        overflow: hidden;
-        border-top-left-radius: 2rem;
-        border-top-right-radius: 2rem;
-        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    }
+.menu {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
 
-    .mb-nav-item {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex: 25%;
-        padding: 1rem 0;
-    }
+.right-menu {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
 
-    .mb-nav-item i,
-    .mb-nav-item a {
-        font-size: 2rem;
-        color: var(--secon-color);
-        z-index: 2;
-        transition: .5s ease-in-out;
-    }
+.right-menu .menu-item {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
 
-    .mb-nav-item.active i {
-        color: var(--white);
-    }
-
-    .mb-move-item {
-        position: absolute;
-        left: 0;
-        width: 25%;
-        height: 100%;
-        background-color: var(--primary-color);
-        transition: .5s ease-in-out;
-    }
+.right-menu .menu-item:hover {
+    opacity: 0.8;
 }

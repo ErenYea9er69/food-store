@@ -1,87 +1,60 @@
-/* ---------- General Animations ---------- */
-.left-to-right {
-    transform: translateX(-150%);
-    transition: 1s ease-in-out;
+.row {
+    display: flex;
+    flex-wrap: wrap;
 }
 
-.left-to-right.start {
-    transform: translateX(0);
+[class*="col-"] {
+    padding: 1rem;
 }
 
-.right-to-left {
-    transform: translateX(150%);
-    transition: 1s ease-in-out;
+.col-1 {
+    width: 8.33%;
 }
 
-.right-to-left.start {
-    transform: translateX(0);
+.col-2 {
+    width: 16.66%;
 }
 
-.zoom {
-    transform: scale(0);
-    transition: .6s ease-in-out;
+.col-3 {
+    width: 25%;
 }
 
-.zoom.start {
-    transform: unset;
+.col-4 {
+    width: 33.33%;
 }
 
-.bottom-up {
-    transform: translateY(30%);
-    transition: .8s ease-in-out;
+.col-5 {
+    width: 41.66%;
 }
 
-.bottom-up.start {
-    transform: translateY(0);
+.col-6 {
+    width: 50%;
 }
 
-.delay-2   { transition-delay: .2s; }
-.delay-4   { transition-delay: .4s; }
-.delay-6   { transition-delay: .6s; }
-.delay-8   { transition-delay: .8s; }
-.delay-10  { transition-delay: .10s; }
-.delay-12  { transition-delay: .12s; }
-
-/* confetti */
-@keyframes confettiFall {
-    0% {
-        transform: translateY(-100vh) rotate(0deg);
-    }
-    100% {
-        transform: translateY(100vh) rotate(360deg);
-    }
+.col-7 {
+    width: 58.33%;
 }
 
-.confetti {
-    position: fixed;
-    width: 10px;
-    height: 10px;
-    top: -10px;
-    z-index: 1000;
-    animation: confettiFall linear forwards;
+.col-8 {
+    width: 66.66%;
 }
 
-/* notification */
-@keyframes slideIn {
-    from {
-        transform: translateX(100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
+.col-9 {
+    width: 75%;
 }
 
-.notification {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background-color: var(--primary-color);
-    color: white;
-    padding: 15px 25px;
-    border-radius: 25px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    z-index: 1000;
-    animation: slideIn 0.3s ease-out forwards;
+.col-10 {
+    width: 83.33%;
+}
+
+.col-11 {
+    width: 91.66%;
+}
+
+.col-12 {
+    width: 100%;
+}
+
+.mb-nav {
+    display: none;
 }
