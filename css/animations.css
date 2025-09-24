@@ -1,29 +1,87 @@
-/* ---------- ANIMATIONS ---------- */
-.left-to-right { transform: translateX(-150%); transition: 1s ease-in-out; }
-.left-to-right.start { transform: translateX(0); }
+/* ---------- General Animations ---------- */
+.left-to-right {
+    transform: translateX(-150%);
+    transition: 1s ease-in-out;
+}
 
-.right-to-left { transform: translateX(150%); transition: 1s ease-in-out; }
-.right-to-left.start { transform: translateX(0); }
+.left-to-right.start {
+    transform: translateX(0);
+}
 
-.zoom { transform: scale(0); transition: .6s ease-in-out; }
-.zoom.start { transform: unset; }
+.right-to-left {
+    transform: translateX(150%);
+    transition: 1s ease-in-out;
+}
 
-.bottom-up { transform: translateY(30%); transition: .8s ease-in-out; }
-.bottom-up.start { transform: translateY(0); }
+.right-to-left.start {
+    transform: translateX(0);
+}
 
-.delay-2  { transition-delay: .2s; }
-.delay-4  { transition-delay: .4s; }
-.delay-6  { transition-delay: .6s; }
-.delay-8  { transition-delay: .8s; }
-.delay-10 { transition-delay: .10s; }
-.delay-12 { transition-delay: .12s; }
+.zoom {
+    transform: scale(0);
+    transition: .6s ease-in-out;
+}
+
+.zoom.start {
+    transform: unset;
+}
+
+.bottom-up {
+    transform: translateY(30%);
+    transition: .8s ease-in-out;
+}
+
+.bottom-up.start {
+    transform: translateY(0);
+}
+
+.delay-2   { transition-delay: .2s; }
+.delay-4   { transition-delay: .4s; }
+.delay-6   { transition-delay: .6s; }
+.delay-8   { transition-delay: .8s; }
+.delay-10  { transition-delay: .10s; }
+.delay-12  { transition-delay: .12s; }
 
 /* confetti */
 @keyframes confettiFall {
-    0%   { transform: translateY(-100vh) rotate(0deg); }
-    100% { transform: translateY(100vh) rotate(360deg); }
+    0% {
+        transform: translateY(-100vh) rotate(0deg);
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+    }
 }
+
 .confetti {
-    position: fixed; width: 10px; height: 10px; top: -10px; z-index: 1000;
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    top: -10px;
+    z-index: 1000;
     animation: confettiFall linear forwards;
+}
+
+/* notification */
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 25px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 1000;
+    animation: slideIn 0.3s ease-out forwards;
 }

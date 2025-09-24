@@ -1,27 +1,168 @@
-/* ---------- CARD COMPONENTS & REVIEWS ---------- */
+/* ---------- Cards & Reviews ---------- */
 .review-wrap {
-    width: 100%; padding: 1rem; background: var(--white); border-radius: 3rem;
-    box-shadow: rgba(100,100,111,.2) 0 7px 29px 0;
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--white);
+    border-radius: 3rem;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
-.review-wrap.active { transform: scale(1.2) !important; }
+
+.review-wrap.active {
+    transform: scale(1.2) !important;
+}
 
 .review-content {
-    padding: 3rem; border-bottom: .125rem solid var(--grey); position: relative; text-align: center;
+    padding: 3rem;
+    border-bottom: .125rem solid var(--grey);
+    position: relative;
+    text-align: center;
 }
+
 .review-img {
-    position: absolute; left: 50%; transform: translateX(-50%); bottom: -2.5rem;
-    width: 5rem; height: 5rem; border-radius: 2rem;
-    box-shadow: rgba(100,100,111,.2) 0 7px 29px 0;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -2.5rem;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 2rem;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
-.review-info { padding: 3rem; text-align: center; }
 
-.rating { margin-top: 2rem; }
-.rating i { color: var(--primary-color); }
-
-/* utility card */
-.about-slogan {
-    padding: 4rem; background: var(--white); border-radius: 2rem;
-    box-shadow: rgba(0,0,0,.15) 0 2px 8px;
+.review-info {
+    padding: 3rem;
+    text-align: center;
 }
-.about-slogan.start { transform: translateX(-10rem) !important; }
-.about-slogan h3 { font-size: 2rem; margin-bottom: 3rem; color: var(--grey); }
+
+.rating {
+    margin-top: 2rem;
+}
+
+.rating i {
+    color: var(--primary-color);
+}
+
+/* checkout cards */
+.checkout-section {
+    padding: 120px 0;
+    min-height: 100vh;
+    background-color: var(--background-color);
+}
+
+.checkout-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.checkout-container h1 {
+    text-align: center;
+    color: var(--grey);
+    margin-bottom: 40px;
+    font-size: 2.5rem;
+}
+
+.checkout-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.summary-card,
+.form-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.summary-card h2,
+.form-card h2 {
+    color: var(--primary-color);
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 20px;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+.form-group textarea {
+    height: 100px;
+    resize: none;
+}
+
+.checkout-btn {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+}
+
+.checkout-btn:hover {
+    background: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.checkout-total {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 2px solid #eee;
+}
+
+.checkout-total h3 {
+    display: flex;
+    justify-content: space-between;
+    color: var(--primary-color);
+    font-size: 1.5rem;
+}
+
+#checkout-items {
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+@media screen and (max-width: 768px) {
+    .checkout-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .checkout-container h1 {
+        font-size: 2rem;
+    }
+
+    .summary-card,
+    .form-card {
+        padding: 20px;
+    }
+}

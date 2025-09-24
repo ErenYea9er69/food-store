@@ -1,15 +1,36 @@
-/* ---------- FOOTER ---------- */
-.footer { color: var(--white); }
-.footer h1 { color: var(--primary-color); }
+/* ---------- Footer ---------- */
+.footer {
+    color: var(--white);
+}
 
-.footer .input-group {
-    padding: 1rem; border: .125rem solid var(--primary-color); border-radius: 2rem;
-    display: flex; justify-content: space-between; margin-top: 2rem;
+.footer h1 {
+    color: var(--primary-color);
 }
-.footer .input-group input {
-    flex: auto; outline: none; border: none; color: var(--primary-color); background: transparent;
+
+.input-group {
+    padding: 1rem;
+    border: .125rem solid var(--primary-color);
+    border-radius: 2rem;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
 }
-.footer .input-group button {
-    padding: .5rem 1rem; outline: none; border: none; background: var(--primary-color);
-    border-radius: 1rem; color: var(--white); font-weight: 600; cursor: pointer;
+
+.input-group input {
+    flex: auto;
+    outline: none;
+    border: none;
+    color: var(--primary-color);
+    background-color: transparent;
+}
+
+.input-group button {
+    padding: .5rem 1rem;
+    outline: none;
+    border: none;
+    background-color: var(--primary-color);
+    border-radius: 1rem;
+    color: var(--white);
+    font-weight: 600;
+    cursor: pointer;
 }
